@@ -1,21 +1,15 @@
 class Solution {
 public:
     int reverse(int x) {
-        long long temp{x}, val, rev{0};
-        if (x < 0){
-            temp = temp - (2*temp);
-        }
-        while (temp > 0){
-            val = temp%10;
-            temp = temp / 10;
-            rev = (rev*10) + val;
-        }
-        if (rev > INT_MAX || rev < INT_MIN){
-            return 0;
-        }
-        if (x < 0){
-            rev = rev - (2*rev);
-            return rev;
+        long long rev = 0;
+        while (x != 0){
+            int val = x % 10;
+            x /= 10;
+
+            if (rev > INT_MAX / 10 || rev == INT_MAX && val > 7) return 0;
+            if (rev < INT_MIN / 10 || rev == INT_MIN && val < -8) return 0;
+
+            rev = (rev * 10) + val;
         }
         return rev;
     }
